@@ -39,6 +39,7 @@ class TodoItem extends React.Component {
     }
 
     return (
+      <div>
       <li className={styles.item}>
         <div onDoubleClick={this.handleEditing} style={viewMode}>
           <input 
@@ -63,6 +64,8 @@ class TodoItem extends React.Component {
   onKeyDown={this.handleUpdatedDone}
 />
       </li>
+     
+      </div>
     )
   }
 }

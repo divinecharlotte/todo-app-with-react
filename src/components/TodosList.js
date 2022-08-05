@@ -1,11 +1,14 @@
 import React from "react"
 // import { useState } from "react"
 import TodoItem from "./TodoItem"
+import { observer } from "mobx-react"
+import { TodoStore } from "./TodoStore"
 
-const TodosList = props => {
+const TodosList = observer((props) => {
   // const [searchTerm, setSearchTerm] = useState("")
   return (
     <div>
+      {/* <button type="button">clear all completed</button> */}
       {/* <div>
       <input
        type="text" 
@@ -30,18 +33,20 @@ const TodosList = props => {
             )
           }
       </div> */}
+      <input type="text" placeholder = 'search...' onChange = {(e)=>TodoStore.filterdata(e.target.value)}/>
     <ul>
-      {props.todos.map(todo => (
+      {props.TodoStore.todos.map(todo => (
         <TodoItem
           key={todo.id}
           todo={todo}
-          handleChangeProps={props.handleChangeProps}
+          TodoStore={TodoStore}
           deleteTodoProps={props.deleteTodoProps}
           setUpdate={props.setUpdate}
         />
       ))}
     </ul>
+    {/* <button type="button" onClick={this.TodoStore.removeCompletedTodos}>remove completed</button> */}
     </div>
   )
-}
+})
 export default TodosList

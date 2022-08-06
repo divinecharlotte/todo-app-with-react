@@ -8,7 +8,6 @@ const Header = () => {
   }
   return (
     <div
-      // style={headerDiv} 
     >
       <div
         style={{

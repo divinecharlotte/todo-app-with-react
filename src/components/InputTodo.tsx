@@ -1,19 +1,19 @@
 import React, { useState } from "react"
 import {observer} from 'mobx-react'
 
-const InputTodo = observer(( props) => {
+const InputTodo = observer(( props: { TodoStore: { addTodoItem: (arg0: string) => void } }) => {
   const [inputText, setInputText] = useState({
     title: "",
   })
 
-  const onChange = e => {
+  const onChange = (e: { target: { name: any; value: any } }) => {
     setInputText({
       ...inputText,
       [e.target.name]: e.target.value,
     })
   }
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault()
     if (inputText.title.trim()) {
       props.TodoStore.addTodoItem(inputText.title)

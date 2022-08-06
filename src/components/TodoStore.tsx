@@ -14,7 +14,8 @@ class TodoStoreImpl{
             countCompleted:computed,
         });
     }
-    addTodoItem(title){
+    
+    addTodoItem(title: any){
         const newTodo={
             id: uuidv4(),
             title: title,
@@ -23,7 +24,7 @@ class TodoStoreImpl{
         this.todos.push(newTodo);
         localStorage.setItem('todos',JSON.stringify(this.todos));
 }
- handleChange = id => {
+ handleChange = (id: any) => {
    return this.todos =  this.todos.map(todo => {
         if (todo.id === id) {
 
@@ -36,7 +37,7 @@ class TodoStoreImpl{
         return todo
       })
   }
-  filterdata = (keyword)=>{
+  filterdata = (keyword: string)=>{
     return this.todos = this.todos.filter(el=>el.title.match(keyword))
 
   }

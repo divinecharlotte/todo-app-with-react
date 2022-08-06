@@ -24,6 +24,7 @@ const TodoItem = observer(( props) => {
   }
 
   const { completed, id, title } = props.todo
+  
 
   let viewMode = {}
   let editMode = {}

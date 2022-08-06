@@ -1,4 +1,4 @@
-import {action,makeObservable,observable} from 'mobx';
+import {action,computed,makeObservable,observable} from 'mobx';
 import { v4 as uuidv4 } from "uuid";
 
 
@@ -11,6 +11,7 @@ class TodoStoreImpl{
             removeTodo: action,
             setUpdate: action,
             removeCompletedTodos: action,
+            countCompleted:computed,
         });
     }
     addTodoItem(title){
@@ -20,6 +21,7 @@ class TodoStoreImpl{
             completed: false,
         };
         this.todos.push(newTodo);
+        localStorage.setItem('todos',JSON.stringify(this.todos));
 }
  handleChange = id => {
    return this.todos =  this.todos.map(todo => {
@@ -40,24 +42,30 @@ class TodoStoreImpl{
   }
     removeTodo(id) {
     this.todos = this.todos.filter((todo) => todo.id !== id);
+    localStorage.setItem('todos',JSON.stringify(this.todos));
   }
 
  setUpdate = (updatedTitle, id) => {
-    // setTodos(
       return this.todos= this.todos.map((todo) => {
-      // todos.map(todo => {
         if (todo.id === id) {
           todo.title = updatedTitle
+          localStorage.setItem('todos',JSON.stringify(this.todos));
+          
         }
         return todo
       })
-    // )
+      
   }
 
   removeCompletedTodos = () => {
     this.todos = this.todos.filter((todo) => todo.completed === false);
+    localStorage.setItem('todos',JSON.stringify(this.todos));
   }
+get countCompleted(){
 
+    return this.todos.filter(el=>el.completed).length;
+    // return this.todos.filter(todo => todo.completed).length;
+}
 }
 
 export const  TodoStore = new TodoStoreImpl();

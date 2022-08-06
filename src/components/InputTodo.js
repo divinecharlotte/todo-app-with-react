@@ -1,43 +1,43 @@
-import React, { Component } from "react"
-import { FaPlusCircle } from "react-icons/fa"
-class InputTodo extends Component {
-  state = {
+import React, { useState } from "react"
+import {observer} from 'mobx-react'
+
+const InputTodo = observer(( props) => {
+  const [inputText, setInputText] = useState({
     title: "",
-  }
-  onChange = e => {
-    this.setState({
+  })
+
+  const onChange = e => {
+    setInputText({
+      ...inputText,
       [e.target.name]: e.target.value,
     })
   }
-  handleSubmit = e => {
+
+  const handleSubmit = e => {
     e.preventDefault()
-    if (this.state.title.trim()) {
-      this.props.addTodoProps(this.state.title)
-      this.setState({
+    if (inputText.title.trim()) {
+      props.TodoStore.addTodoItem(inputText.title)
+      setInputText({
         title: "",
       })
     } else {
       alert("Please write item")
     }
   }
-  render() {
-    return (
-        <form onSubmit={this.handleSubmit}>
-        <input
-          type="text"
-          className="input-text"
-          placeholder="Add todo..."
-          value={this.state.title}
-          name="title"
-          onChange={this.onChange}
-        />
-        <button className="input-submit">
-        <FaPlusCircle
-    style={{ color: "darkcyan", fontSize: "20px", marginTop: "2px" }}
-  />
-        </button>
-      </form>
-    )
-  }
-}
+
+  return (
+    <form onSubmit={handleSubmit} className="form-container">
+      <input
+        type="text"
+        className="input-text"
+        placeholder="Add todo..."
+        value={inputText.title}
+        name="title"
+        onChange={onChange}
+      />
+      <button className="input-submit">Submit</button>
+    </form>
+  )
+})
+
 export default InputTodo

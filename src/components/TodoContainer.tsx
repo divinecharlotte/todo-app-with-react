@@ -8,15 +8,14 @@ import { TodoStore } from "./TodoStore"
 
 const TodoContainer = () => {
   
-  
-
+  const {todos}= TodoStore
   return (
     <div className="container">
       <div className="inner">
         <Header />
         <InputTodo TodoStore={TodoStore} />
         <TodosList
-          TodoStore={TodoStore}
+          todosProp={todos}
         />
           <button type="button" onClick={TodoStore.removeCompletedTodos}>remove completed</button>
       </div>

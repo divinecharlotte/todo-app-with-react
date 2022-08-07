@@ -1,9 +1,14 @@
 import {action,computed,makeObservable,observable} from 'mobx';
 import { v4 as uuidv4 } from "uuid";
 
+export type TodoType ={
+  id:string;
+  title: string;
+  completed:boolean
+}
 
 class TodoStoreImpl{
-    todos=[];
+    todos: TodoType[] = [];
     constructor(){
         makeObservable(this,{
             todos: observable,
@@ -16,7 +21,7 @@ class TodoStoreImpl{
     }
     
     addTodoItem(title: any){
-        const newTodo={
+        const newTodo: TodoType ={
             id: uuidv4(),
             title: title,
             completed: false,

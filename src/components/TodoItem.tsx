@@ -1,7 +1,7 @@
 import React, { useState } from "react"
-import styles from "./TodoItem.module.css"
 import {observer} from "mobx-react"
 import { TodoStore } from "./TodoStore"
+
 
 const TodoItem = observer(( props) => {
   const [editing, setEditing] = useState(false)
@@ -22,6 +22,9 @@ const TodoItem = observer(( props) => {
     opacity: 0.4,
     textDecoration: "line-through",
   }
+  const Style ={
+    display : "none",
+  }
 
   const { completed, id, title } = props.todo
   
@@ -30,13 +33,15 @@ const TodoItem = observer(( props) => {
   let editMode = {}
 
   if (editing) {
-    viewMode.display = "none"
+    viewMode = Style
+
   } else {
-    editMode.display = "none"
+    
+    editMode = Style
   }
 
   return (
-    <li className={styles.item}>
+    <>
       <div onDoubleClick={handleEditing} style={viewMode}>
         <input
           type="checkbox"
@@ -44,8 +49,10 @@ const TodoItem = observer(( props) => {
           checked={completed}
           onChange={() => props.TodoStore.handleChange(id)}
         />
-        <button  type="buttton" onClick={() => TodoStore.removeTodo(id)}>Delete</button>
-        <span style={completed ? completedStyle : null}>{title}</span>
+        <button  type="button" onClick={() => TodoStore.removeTodo(id)}>Delete</button>
+        <span style className={completed ? styles.completed : ""}
+        >
+        </span>
       </div>
       <input
         type="text"
@@ -58,7 +65,7 @@ const TodoItem = observer(( props) => {
         }}
         onKeyDown={handleUpdatedDone}
       />
-    </li>
+    </>
   )
 })
 
